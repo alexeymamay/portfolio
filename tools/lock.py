@@ -39,14 +39,21 @@ GATE_STYLE = """
   <meta name="robots" content="noindex">
   <style>
     body.body{background:#fff}
-    .hero-heading-right-2{padding-top:80px;padding-bottom:0;margin-bottom:0}
+    .hero-heading-right-2{padding-top:80px;padding-bottom:80px;margin-bottom:0}
     .hero-wrapper-2{align-items:flex-start;margin-bottom:0}
     .hero-split-2 .heading{margin-top:0}
-    .hero-split-2 .footer-social-link-three{padding-left:0;padding-right:30px}
     .hero-split-2 .heading,.hero-split-2 .heading-copy,.hero-split-2 .margin-bottom-24px,.hero-split-2 .title-small-2,.hero-split-2 .footer-link-2{text-align:left;margin-left:0;margin-right:0}
-    .hero-split-2 .footer-wrapper-three,.hero-split-2 .footer-social-block-three{margin-left:0;margin-right:0;justify-content:flex-start;align-items:flex-start}
-    .gate-wrap{display:flex;justify-content:center;padding:50px 30px 80px}
-    .gate-form{width:100%;max-width:315px;display:flex;flex-direction:column}
+    .hero-split-2+.hero-split-2{display:grid;grid-template-columns:auto 1fr auto 1fr;column-gap:0;align-items:start}
+    .hero-split-2+.hero-split-2>*{grid-column:1/-1}
+    .hero-split-2+.hero-split-2>.title-small-2{grid-column:1;grid-row:4}
+    .hero-split-2+.hero-split-2>.footer-link-2{grid-column:1;grid-row:5}
+    .hero-split-2+.hero-split-2>.footer-wrapper-three{grid-column:3;grid-row:4/6;align-self:center;padding-top:0;margin:0}
+    .hero-split-2+.hero-split-2>.gate-form{grid-column:1/-1;grid-row:6}
+    .hero-split-2 .footer-social-block-three{margin:0;padding-top:0;justify-content:flex-start;align-items:center}
+    .hero-split-2 .footer-social-link-three{padding-left:0;padding-right:30px}
+    .hero-split-2 .footer-social-link-three:last-child{padding-right:0}
+    .hero-split-2 .footer-social-link-three img{width:48px;height:48px}
+    .gate-form{width:100%;margin-top:24px;display:flex;flex-direction:column}
     .gate-input{width:100%;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:500;letter-spacing:2px;text-transform:uppercase;text-align:center;height:48px;padding:0 16px;border:1px solid #1a1b1f;border-radius:0;outline:none;background:#fff;-webkit-appearance:none;appearance:none}
     .gate-input::placeholder{color:#8a8b90}
     .gate-input:focus{box-shadow:inset 0 0 0 1px #1a1b1f}
@@ -55,7 +62,7 @@ GATE_STYLE = """
     .gate-form .button-primary:disabled{opacity:.6;cursor:default}
     .gate-err{min-height:22px;margin-top:10px;font-family:"DM Sans",sans-serif;font-size:14px;color:#c0392b;text-align:center}
     @media screen and (max-width:991px){.hero-heading-right-2{padding-top:0}}
-    @media screen and (max-width:767px){.hero-heading-right-2{padding:0 15px}.hero-split-2{max-width:100%;width:100%}.gate-wrap{padding:24px 15px 60px}.hero-split-2 .heading{margin-top:20px;padding-top:0}.hero-split-2+.hero-split-2{display:grid;grid-template-columns:auto 1fr auto 1fr;column-gap:0;align-items:start}.hero-split-2+.hero-split-2>*{grid-column:1/-1}.hero-split-2+.hero-split-2>.title-small-2{grid-column:1;grid-row:4}.hero-split-2+.hero-split-2>.footer-link-2{grid-column:1;grid-row:5}.hero-split-2+.hero-split-2>.footer-wrapper-three{grid-column:3;grid-row:4/6;align-self:center;padding-top:0}.hero-split-2 .footer-social-block-three{padding-top:0;margin-top:0}.hero-split-2 .footer-social-link-three:last-child{padding-right:0}.gate-form{max-width:none}}
+    @media screen and (max-width:767px){.hero-heading-right-2{padding:0 15px 60px}.hero-split-2{max-width:100%;width:100%}.hero-split-2 .heading{margin-top:20px;padding-top:0}}
   </style>
 """
 
@@ -113,8 +120,7 @@ def build_gate(page, payload):
     head_end = page.index("</head>")
     hero_start = page.index('<section id="Heading"')
     hero_end = page.index("</section>", hero_start) + len("</section>")
-    hero = page[hero_start:hero_end].replace("<!-- GATE_FORM -->", "")
-    hero += '\n  <div class="gate-wrap">\n          ' + GATE_FORM + '\n  </div>'
+    hero = page[hero_start:hero_end].replace("<!-- GATE_FORM -->", GATE_FORM)
     scripts = "\n".join(re.findall(r'<script src="[^"]*(?:jquery|webflow)[^"]*"[^>]*></script>', page[hero_end:]))
     return (page[:head_end] + GATE_STYLE + "</head>\n<body class=\"body\">\n  " + hero + "\n  " + scripts + "\n"
             + GATE_SCRIPT.replace("__PAYLOAD__", payload) + "</body>\n</html>\n")
