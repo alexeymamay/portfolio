@@ -39,14 +39,14 @@ GATE_STYLE = """
   <meta name="robots" content="noindex">
   <style>
     body.body{background:#fff}
-    .hero-heading-right-2{padding-top:80px;margin-bottom:0}
+    .hero-heading-right-2{padding-top:80px;padding-bottom:0;margin-bottom:0}
     .hero-wrapper-2{align-items:flex-start;margin-bottom:0}
     .hero-split-2 .heading{margin-top:0}
     .hero-split-2 .footer-social-link-three{padding-left:0;padding-right:30px}
     .hero-split-2 .heading,.hero-split-2 .heading-copy,.hero-split-2 .margin-bottom-24px,.hero-split-2 .title-small-2,.hero-split-2 .footer-link-2{text-align:left;margin-left:0;margin-right:0}
     .hero-split-2 .footer-wrapper-three,.hero-split-2 .footer-social-block-three{margin-left:0;margin-right:0;justify-content:flex-start;align-items:flex-start}
-    .gate-wrap{display:flex;justify-content:center;padding:80px 30px}
-    .gate-form{width:100%;max-width:420px;display:flex;flex-direction:column}
+    .gate-wrap{display:flex;justify-content:center;padding:50px 30px 80px}
+    .gate-form{width:100%;max-width:315px;display:flex;flex-direction:column}
     .gate-input{width:100%;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:500;letter-spacing:2px;text-transform:uppercase;text-align:center;height:48px;padding:0 16px;border:1px solid #1a1b1f;border-radius:0;outline:none;background:#fff;-webkit-appearance:none;appearance:none}
     .gate-input::placeholder{color:#8a8b90}
     .gate-input:focus{box-shadow:inset 0 0 0 1px #1a1b1f}
@@ -54,7 +54,7 @@ GATE_STYLE = """
     .gate-form .button-primary:disabled{opacity:.6;cursor:default}
     .gate-err{min-height:22px;margin-top:10px;font-family:"DM Sans",sans-serif;font-size:14px;color:#c0392b;text-align:center}
     @media screen and (max-width:991px){.hero-heading-right-2{padding-top:0}}
-    @media screen and (max-width:767px){.hero-heading-right-2{padding:0 15px}.hero-split-2{max-width:100%;width:100%}.gate-wrap{padding:48px 15px 60px}}
+    @media screen and (max-width:767px){.hero-heading-right-2{padding:0 15px}.hero-split-2{max-width:100%;width:100%}.gate-wrap{padding:24px 15px 60px}.gate-form{max-width:none}}
   </style>
 """
 
