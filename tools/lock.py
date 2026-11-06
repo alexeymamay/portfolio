@@ -52,7 +52,11 @@ GATE_STYLE = """
     .hero-split-2 .footer-social-block-three{margin:0;padding-top:0;justify-content:flex-start;align-items:center}
     .hero-split-2 .footer-social-link-three{padding-left:0;padding-right:30px}
     .hero-split-2 .footer-social-link-three:last-child{padding-right:0}
-    .hero-split-2 .footer-social-link-three img{width:48px;height:48px}
+    .hero-split-2 .footer-social-link-three img{width:36px;height:36px}
+    .hero-split-2 .heading{font-size:32px;line-height:34px}
+    .hero-split-2 .heading-copy{font-size:30px;line-height:30px}
+    .hero-split-2+.hero-split-2>.title-small-2{margin-top:12px;margin-bottom:0;padding-top:0}
+    .hero-split-2+.hero-split-2>.footer-link-2{margin-top:6px}
     .gate-form{width:100%;margin-top:24px;display:flex;flex-direction:column}
     .gate-input{width:100%;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:500;letter-spacing:2px;text-transform:uppercase;text-align:center;height:48px;padding:0 16px;border:1px solid #1a1b1f;border-radius:0;outline:none;background:#fff;-webkit-appearance:none;appearance:none}
     .gate-input::placeholder{color:#8a8b90}
@@ -62,7 +66,7 @@ GATE_STYLE = """
     .gate-form .button-primary:disabled{opacity:.6;cursor:default}
     .gate-err{min-height:22px;margin-top:10px;font-family:"DM Sans",sans-serif;font-size:14px;color:#c0392b;text-align:center}
     @media screen and (max-width:991px){.hero-heading-right-2{padding-top:0}}
-    @media screen and (max-width:767px){.hero-heading-right-2{padding:0 15px 60px}.hero-split-2{max-width:100%;width:100%}.hero-split-2 .heading{margin-top:20px;padding-top:0}}
+    @media screen and (max-width:767px){.hero-heading-right-2{padding:0 15px 60px}.hero-split-2 .heading{font-size:30px;line-height:32px}.hero-split-2 .heading-copy{font-size:24px;line-height:26px}.hero-split-2{max-width:100%;width:100%}.hero-split-2 .heading{margin-top:20px;padding-top:0}}
   </style>
 """
 
