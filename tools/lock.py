@@ -38,15 +38,23 @@ def get_password():
 GATE_STYLE = """
   <meta name="robots" content="noindex">
   <style>
-    body.body{min-height:100vh;display:flex;flex-direction:column;justify-content:center;background:#fff}
-    .gate-form{width:80%;margin-top:32px;display:flex;flex-direction:column}
+    body.body{background:#fff}
+    .hero-heading-right-2{padding-top:80px;margin-bottom:0}
+    .hero-wrapper-2{align-items:flex-start;margin-bottom:0}
+    .hero-split-2 .heading{margin-top:0}
+    .hero-split-2 .footer-social-link-three{padding-left:0;padding-right:30px}
+    .hero-split-2 .heading,.hero-split-2 .heading-copy,.hero-split-2 .margin-bottom-24px,.hero-split-2 .title-small-2,.hero-split-2 .footer-link-2{text-align:left;margin-left:0;margin-right:0}
+    .hero-split-2 .footer-wrapper-three,.hero-split-2 .footer-social-block-three{margin-left:0;margin-right:0;justify-content:flex-start;align-items:flex-start}
+    .gate-wrap{display:flex;justify-content:center;padding:80px 30px}
+    .gate-form{width:100%;max-width:420px;display:flex;flex-direction:column}
     .gate-input{width:100%;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:500;letter-spacing:2px;text-transform:uppercase;text-align:center;height:48px;padding:0 16px;border:1px solid #1a1b1f;border-radius:0;outline:none;background:#fff;-webkit-appearance:none;appearance:none}
     .gate-input::placeholder{color:#8a8b90}
     .gate-input:focus{box-shadow:inset 0 0 0 1px #1a1b1f}
     .gate-form .button-primary{margin:12px 0 0;width:100%;height:48px;padding:14px 25px;border:0;cursor:pointer;text-align:center}
     .gate-form .button-primary:disabled{opacity:.6;cursor:default}
-    .gate-err{min-height:22px;margin-top:10px;font-family:"DM Sans",sans-serif;font-size:14px;color:#c0392b}
-    @media screen and (max-width:767px){.gate-form{width:100%;margin-left:auto;margin-right:auto}}
+    .gate-err{min-height:22px;margin-top:10px;font-family:"DM Sans",sans-serif;font-size:14px;color:#c0392b;text-align:center}
+    @media screen and (max-width:991px){.hero-heading-right-2{padding-top:0}}
+    @media screen and (max-width:767px){.hero-heading-right-2{padding:0 15px}.hero-split-2{max-width:100%;width:100%}.gate-wrap{padding:48px 15px 60px}}
   </style>
 """
 
@@ -104,7 +112,8 @@ def build_gate(page, payload):
     head_end = page.index("</head>")
     hero_start = page.index('<section id="Heading"')
     hero_end = page.index("</section>", hero_start) + len("</section>")
-    hero = page[hero_start:hero_end].replace("<!-- GATE_FORM -->", GATE_FORM)
+    hero = page[hero_start:hero_end].replace("<!-- GATE_FORM -->", "")
+    hero += '\n  <div class="gate-wrap">\n          ' + GATE_FORM + '\n  </div>'
     scripts = "\n".join(re.findall(r'<script src="[^"]*(?:jquery|webflow)[^"]*"[^>]*></script>', page[hero_end:]))
     return (page[:head_end] + GATE_STYLE + "</head>\n<body class=\"body\">\n  " + hero + "\n  " + scripts + "\n"
             + GATE_SCRIPT.replace("__PAYLOAD__", payload) + "</body>\n</html>\n")
