@@ -6,7 +6,8 @@ The published file holds only the ciphertext plus a small unlock screen;
 the browser decrypts it after the visitor enters the password.
 
 Usage:
-  python3 tools/lock.py lock   SOURCE.html  OUTPUT.html   # encrypt
+  python3 tools/lock.py lock      SOURCE.html OUTPUT.html  # encrypt the homepage (password screen)
+  python3 tools/lock.py lock-page SOURCE.html OUTPUT.html  # encrypt an inner page (redirects home if locked)
   python3 tools/lock.py unlock LOCKED.html  SOURCE.html   # decrypt for editing
 
 The password is read from the LOCK_PASSWORD environment variable,
@@ -29,6 +30,14 @@ def derive(password, salt, iterations=ITERATIONS):
 
 def b64(b):
     return base64.b64encode(b).decode()
+
+
+SALT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "site-salt.txt")
+
+
+def site_salt():
+    """One salt for the whole site, so the key saved after unlocking the homepage opens every page."""
+    return base64.b64decode(open(SALT_FILE).read().strip())
 
 
 def get_password():
@@ -102,6 +111,11 @@ GATE_SCRIPT = """  <script>
     function fromB64(s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); }
     function toB64(b) { return btoa(String.fromCharCode.apply(null, new Uint8Array(b))); }
     function show(html) { document.open(); document.write(html); document.close(); }
+    function nextUrl() {
+      var n = new URLSearchParams(location.search).get("next");
+      return (n && n.charAt(0) === "/" && n.charAt(1) !== "/") ? n : null;
+    }
+    function proceed(html) { var n = nextUrl(); if (n) { location.replace(n); } else { show(html); } }
     function decryptWith(rawKey) {
       return crypto.subtle.importKey("raw", rawKey, "AES-GCM", false, ["decrypt"]).then(function (key) {
         return crypto.subtle.decrypt({ name: "AES-GCM", iv: fromB64(P.iv) }, key, fromB64(P.data));
@@ -117,7 +131,7 @@ GATE_SCRIPT = """  <script>
     var saved = null;
     try { saved = localStorage.getItem(STORE); } catch (e) {}
     if (saved) {
-      decryptWith(fromB64(saved)).then(show, function () { try { localStorage.removeItem(STORE); } catch (e) {} });
+      decryptWith(fromB64(saved)).then(proceed, function () { try { localStorage.removeItem(STORE); } catch (e) {} });
     }
     document.getElementById("gate").addEventListener("submit", function (e) {
       e.preventDefault();
@@ -127,7 +141,7 @@ GATE_SCRIPT = """  <script>
         raw = bits; return decryptWith(bits);
       }).then(function (html) {
         try { localStorage.setItem(STORE, toB64(raw)); } catch (e) {}
-        show(html);
+        proceed(html);
       }, function () {
         err.textContent = "Incorrect password. Please try again.";
         go.disabled = false; go.textContent = "Access portfolio";
@@ -150,11 +164,57 @@ def build_gate(page, payload):
 
 
 
+def encrypt_payload(page):
+    salt, iv = site_salt(), os.urandom(12)
+    ct = AESGCM(derive(get_password(), salt)).encrypt(iv, page.encode("utf-8"), None)
+    return json.dumps({"v": 1, "iter": ITERATIONS, "salt": b64(salt), "iv": b64(iv), "data": b64(ct)})
+
+
+PAGE_STUB = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Alexey Mamay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <style>html,body{background:#fff;margin:0}</style>
+</head>
+<body>
+  <noscript>This page needs JavaScript. <a href="/">Go to alexeymamay.com</a></noscript>
+  <script>
+  var LOCKED_PAYLOAD = __PAYLOAD__;
+  (function () {
+    var P = LOCKED_PAYLOAD, STORE = "am_unlock_" + P.salt.slice(0, 8);
+    function home() { location.replace("/?next=" + encodeURIComponent(location.pathname + location.search + location.hash)); }
+    function fromB64(s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); }
+    var saved = null;
+    try { saved = localStorage.getItem(STORE); } catch (e) {}
+    if (!saved || !window.crypto || !crypto.subtle) { home(); return; }
+    crypto.subtle.importKey("raw", fromB64(saved), "AES-GCM", false, ["decrypt"]).then(function (key) {
+      return crypto.subtle.decrypt({ name: "AES-GCM", iv: fromB64(P.iv) }, key, fromB64(P.data));
+    }).then(function (buf) {
+      var html = new TextDecoder().decode(buf);
+      var t = html.match(/<title>([^<]*)<\\/title>/);
+      document.open(); document.write(html); document.close();
+      if (t) { var d = document.createElement("textarea"); d.innerHTML = t[1]; document.title = d.value.trim(); }
+    }, function () { try { localStorage.removeItem(STORE); } catch (e) {} home(); });
+  })();
+  </script>
+</body>
+</html>
+"""
+
+
+def lock_page(src, out):
+    """Encrypt an inner page. Without the saved key, visitors are sent to the homepage password screen."""
+    page = open(src, encoding="utf-8").read()
+    open(out, "w", encoding="utf-8").write(PAGE_STUB.replace("__PAYLOAD__", encrypt_payload(page)))
+    print(f"Locked page {src} -> {out}")
+
+
 def lock(src, out):
     page = open(src, encoding="utf-8").read()
-    salt, iv = os.urandom(16), os.urandom(12)
-    ct = AESGCM(derive(get_password(), salt)).encrypt(iv, page.encode("utf-8"), None)
-    payload = json.dumps({"v": 1, "iter": ITERATIONS, "salt": b64(salt), "iv": b64(iv), "data": b64(ct)})
+    payload = encrypt_payload(page)
     if "<!-- GATE_FORM -->" not in page:
         sys.exit("Source page needs a <!-- GATE_FORM --> marker in the hero section.")
     gate = build_gate(page, payload)
@@ -175,6 +235,7 @@ def unlock(locked, out):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4 or sys.argv[1] not in ("lock", "unlock"):
+    cmds = {"lock": lock, "lock-page": lock_page, "unlock": unlock}
+    if len(sys.argv) != 4 or sys.argv[1] not in cmds:
         sys.exit(__doc__)
-    {"lock": lock, "unlock": unlock}[sys.argv[1]](sys.argv[2], sys.argv[3])
+    cmds[sys.argv[1]](sys.argv[2], sys.argv[3])
