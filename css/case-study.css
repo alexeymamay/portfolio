@@ -1,55 +1,11 @@
-/* Case study layout, matched to the alexeymamay.com homepage (940px grid, DM Sans, #2061d9 blue, #f3574b orange) */
-.cs{font-family:"DM Sans",sans-serif;color:#1a1b1f;padding-top:100px}
-.cs-wrap{width:940px;max-width:calc(100% - 30px);margin:0 auto;padding:56px 0}
-.cs-wrap + .cs-wrap{border-top:1px solid #e4e4e4}
-.cs p{font-size:18px;line-height:26px;margin:0 0 16px;color:#1a1b1f}
-.cs-kicker{color:#2061d9 !important;font-weight:700;font-size:18px;letter-spacing:.5px;margin-bottom:8px !important}
-.cs-title{font-size:56px;line-height:60px;font-weight:700;letter-spacing:-1.5px;margin:0 0 16px}
-.cs-lede{font-size:22px !important;line-height:32px !important;max-width:700px;color:#3d3e42 !important}
-.cs-hero{padding-bottom:32px}
-.cs-h2{font-size:32px;line-height:38px;font-weight:700;letter-spacing:-.5px;margin:0 0 16px}
-.cs-h3{font-size:22px;line-height:28px;font-weight:700;margin:40px 0 8px}
-.cs-grid2{display:grid;grid-template-columns:1fr 1fr;column-gap:16px;align-items:center}
-.cs-grid2 > div{padding-right:24px}
-.cs-grid2--media-left > div{padding:0 0 0 24px}
-.cs-grid2--tight{padding:0;align-items:start}
-.cs-grid2--top{align-items:start}
-.cs-figure{margin:0}
-.cs-figure img,.cs-video{display:block;width:100%;height:auto;background:#f5f6f5}
-.cs-figure--wide{margin:24px 0}
-.cs-point{display:flex;gap:16px;margin-top:24px}
-.cs-point img{flex:none;width:40px;height:40px}
-.cs-point h3{font-size:18px;line-height:24px;font-weight:700;margin:0 0 4px}
-.cs-point p{margin:0}
-.cs-phase{background:#fff;border-radius:10px;margin-top:12px;box-shadow:0 3px 7px rgba(0,0,0,.06)}
-.cs-phase summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;cursor:pointer;list-style:none;font-size:20px;line-height:26px;font-weight:700}
-.cs-phase summary::-webkit-details-marker{display:none}
-.cs-phase summary svg{flex:none;color:#f3574b;transition:transform .2s ease}
-.cs-phase[open] summary svg{transform:rotate(180deg)}
-.cs-phase > p{padding:0 24px;max-width:760px}
-.cs-phase > p:last-child{padding-bottom:20px;margin-bottom:0}
-.cs-role strong,.cs-policies dt{color:#1a1b1f}
-.cs-facts{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.cs-facts li{font-size:16px;line-height:24px;color:#3d3e42;border-top:2px solid #1a1b1f;padding-top:12px}
-.cs-facts strong{display:block;font-size:18px;color:#1a1b1f;margin-bottom:4px}
-.cs-policies{margin:0}
-.cs-policies dt{font-size:18px;line-height:24px;font-weight:700;margin-top:20px}
-.cs-policies dd{margin:4px 0 0;font-size:18px;line-height:26px}
-@media screen and (max-width:991px){
-  .cs-wrap{width:728px}
-  .cs-title{font-size:44px;line-height:48px}
-}
-@media screen and (max-width:767px){
-  .cs{padding-top:80px}
-  .cs-wrap{width:auto;margin:0 15px;padding:40px 0}
-  .cs-title{font-size:36px;line-height:40px}
-  .cs-lede{font-size:18px !important;line-height:26px !important}
-  .cs-h2{font-size:26px;line-height:32px}
-  .cs-grid2{grid-template-columns:1fr;row-gap:24px}
-  .cs-grid2 > div,.cs-grid2--media-left > div{padding:0}
-  .cs-grid2--media-left > div{order:-1}
-  .cs-facts{grid-template-columns:1fr}
-  .cs-phase summary{font-size:17px;padding:16px}
-  .cs-phase > p{padding:0 16px}
-  .cs-phase > p:last-child{padding-bottom:16px}
-}
+/* Dynamic Island case study: reuses the site's project-page classes; only layout glue lives here */
+.cs .cs-block{margin-top:24px;margin-bottom:24px}
+.cs .cs-img{margin:24px auto;text-indent:0}
+.cs .cs-img img{display:block;width:100%;height:auto}
+.cs .video-class{margin-top:16px;margin-bottom:16px}
+.cs .cs-process{margin:0 auto 24px}
+.cs-acc summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between}
+.cs-acc summary::-webkit-details-marker{display:none}
+.cs-acc .accordion-icon{transition:transform .2s ease}
+.cs-acc[open] .accordion-icon{transform:rotate(180deg)}
+.cs-acc .accordion-item-content{display:block;padding-bottom:10px}
