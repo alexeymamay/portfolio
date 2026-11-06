@@ -55,13 +55,13 @@ GATE_STYLE = """
     .gate-form .button-primary:disabled{opacity:.6;cursor:default}
     .gate-err{min-height:22px;margin-top:10px;font-family:"DM Sans",sans-serif;font-size:14px;color:#c0392b;text-align:center}
     @media screen and (max-width:991px){.hero-heading-right-2{padding-top:0}}
-    @media screen and (max-width:767px){.hero-heading-right-2{padding:0 15px}.hero-split-2{max-width:100%;width:100%}.gate-wrap{padding:24px 15px 60px}.hero-split-2 .heading{margin-top:20px;padding-top:0}.hero-split-2+.hero-split-2{display:grid;grid-template-columns:1fr auto;column-gap:16px;align-items:start}.hero-split-2+.hero-split-2>*{grid-column:1/-1}.hero-split-2+.hero-split-2>.title-small-2{grid-column:1;grid-row:4}.hero-split-2+.hero-split-2>.footer-link-2{grid-column:1;grid-row:5}.hero-split-2+.hero-split-2>.footer-wrapper-three{grid-column:2;grid-row:4/6;align-self:center;padding-top:0}.hero-split-2 .footer-social-block-three{padding-top:0;margin-top:0}.hero-split-2 .footer-social-link-three:last-child{padding-right:0}.gate-form{max-width:none}}
+    @media screen and (max-width:767px){.hero-heading-right-2{padding:0 15px}.hero-split-2{max-width:100%;width:100%}.gate-wrap{padding:24px 15px 60px}.hero-split-2 .heading{margin-top:20px;padding-top:0}.hero-split-2+.hero-split-2{display:grid;grid-template-columns:auto 1fr auto 1fr;column-gap:0;align-items:start}.hero-split-2+.hero-split-2>*{grid-column:1/-1}.hero-split-2+.hero-split-2>.title-small-2{grid-column:1;grid-row:4}.hero-split-2+.hero-split-2>.footer-link-2{grid-column:1;grid-row:5}.hero-split-2+.hero-split-2>.footer-wrapper-three{grid-column:3;grid-row:4/6;align-self:center;padding-top:0}.hero-split-2 .footer-social-block-three{padding-top:0;margin-top:0}.hero-split-2 .footer-social-link-three:last-child{padding-right:0}.gate-form{max-width:none}}
   </style>
 """
 
 GATE_FORM = """<form class="gate-form" id="gate">
             <input class="gate-input" id="pw" type="password" placeholder="Enter password" aria-label="Password" autocomplete="current-password" required>
-            <button class="button-primary" id="go" type="submit">View portfolio</button>
+            <button class="button-primary" id="go" type="submit">Access portfolio</button>
             <div class="gate-err" id="err"></div>
           </form>"""
 
@@ -100,7 +100,7 @@ GATE_SCRIPT = """  <script>
         show(html);
       }, function () {
         err.textContent = "Incorrect password. Please try again.";
-        go.disabled = false; go.textContent = "View portfolio";
+        go.disabled = false; go.textContent = "Access portfolio";
       });
     });
   })();
