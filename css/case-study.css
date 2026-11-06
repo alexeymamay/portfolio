@@ -9,3 +9,20 @@
 .cs-acc .accordion-icon{transition:transform .2s ease}
 .cs-acc[open] .accordion-icon{transform:rotate(180deg)}
 .cs-acc .accordion-item-content{display:block;padding-bottom:10px}
+/* spacing between text and media */
+.cs .video-class{margin-top:64px;margin-bottom:64px}
+.cs .cs-block{margin-top:40px;margin-bottom:40px}
+.cs .cs-process{margin-bottom:64px}
+/* two-column sections (intro: image left / policies: text right) */
+.cs-split{display:grid;grid-template-columns:1fr 1fr;column-gap:48px;align-items:center;margin:64px 0}
+.cs-split--policies{align-items:start}
+.cs-split-img{display:block;width:100%;height:auto}
+.cs-split .uui-text-rich-text{text-indent:0}
+.cs-split .uui-text-rich-text h5{margin-top:0}
+.cs-eyebrow{color:#8a8b90 !important;font-weight:700;margin-bottom:4px !important}
+.cs-point{display:flex;gap:16px;align-items:flex-start;margin-top:8px}
+.cs-point img{flex:none;width:32px;height:32px;margin-top:-2px}
+@media screen and (max-width:767px){
+  .cs-split{grid-template-columns:1fr;row-gap:32px;margin:48px 15px}
+  .cs .video-class{margin-top:40px;margin-bottom:40px}
+}
