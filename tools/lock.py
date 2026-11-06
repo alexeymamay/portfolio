@@ -78,6 +78,7 @@ GATE_STYLE = """
     @media screen and (min-width:992px){
       .hero-wrapper-2{align-items:stretch;justify-content:center;column-gap:40px}
       .hero-split-2:first-child{justify-content:flex-end}
+      .hero-split-2:first-child [data-animation-type=lottie]{transform:translateY(3px)}
       .hero-split-2+.hero-split-2{width:fit-content;max-width:none}
       .hero-split-2+.hero-split-2>.margin-bottom-24px{contain:inline-size;width:100%;margin-bottom:6px}
       .hero-split-2+.hero-split-2>.title-small-2{margin-top:10px}
