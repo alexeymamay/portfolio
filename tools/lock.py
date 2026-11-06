@@ -85,7 +85,7 @@ GATE_STYLE = """
       .hero-split-2+.hero-split-2>.gate-form{margin-top:12px}
     }
     @media screen and (max-width:991px){.hero-heading-right-2{padding-top:0}}
-    @media screen and (max-width:767px){.hero-heading-right-2{padding:0 15px 60px}.hero-split-2 .heading{font-size:30px;line-height:32px}.hero-split-2 .heading-copy{font-size:24px;line-height:26px}.hero-split-2{max-width:100%;width:100%}.hero-split-2 .heading{margin-top:20px;padding-top:0}}
+    @media screen and (max-width:767px){.hero-heading-right-2{padding:0 15px 60px}.gate-input{font-size:16px}.hero-split-2 .heading{font-size:30px;line-height:32px}.hero-split-2 .heading-copy{font-size:24px;line-height:26px}.hero-split-2{max-width:100%;width:100%}.hero-split-2 .heading{margin-top:20px;padding-top:0}}
   </style>
 """
 
