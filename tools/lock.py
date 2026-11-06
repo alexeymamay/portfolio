@@ -65,6 +65,15 @@ GATE_STYLE = """
     .gate-form .button-primary{margin:12px 0 0;width:100%;height:48px;padding:14px 25px;border:0;cursor:pointer;text-align:center}
     .gate-form .button-primary:disabled{opacity:.6;cursor:default}
     .gate-err{min-height:22px;margin-top:10px;font-family:"DM Sans",sans-serif;font-size:14px;color:#c0392b;text-align:center}
+    @keyframes gateFadeIn{from{opacity:0}to{opacity:1}}
+    .hero-split-2+.hero-split-2>.title-small-2,.hero-split-2+.hero-split-2>.footer-link-2,.hero-split-2+.hero-split-2>.footer-wrapper-three,.gate-input,.gate-form .button-primary{animation:gateFadeIn 1s ease both}
+    .hero-split-2+.hero-split-2>.title-small-2{animation-delay:1.05s}
+    .hero-split-2+.hero-split-2>.footer-link-2{animation-delay:1.15s}
+    .hero-split-2+.hero-split-2>.footer-wrapper-three{animation-delay:1.25s}
+    .gate-input{animation-delay:1.4s}
+    .gate-form .button-primary{animation-delay:1.5s}
+    @media (prefers-reduced-motion:reduce){.hero-split-2 *,.gate-form *{animation:none!important}}
+    @media screen and (min-width:768px){.hero-split-2+.hero-split-2{grid-template-columns:auto 1fr auto 3fr}}
     @media screen and (max-width:991px){.hero-heading-right-2{padding-top:0}}
     @media screen and (max-width:767px){.hero-heading-right-2{padding:0 15px 60px}.hero-split-2 .heading{font-size:30px;line-height:32px}.hero-split-2 .heading-copy{font-size:24px;line-height:26px}.hero-split-2{max-width:100%;width:100%}.hero-split-2 .heading{margin-top:20px;padding-top:0}}
   </style>
