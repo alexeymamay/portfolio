@@ -44,34 +44,51 @@ GATE = """<!DOCTYPE html>
   <meta name="robots" content="noindex">
   <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
   <link href="images/webclip.png" rel="apple-touch-icon">
+  <link href="css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="css/alexey-motiondesigner.webflow.css" rel="stylesheet" type="text/css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
   <style>
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0}
-    body{font-family:"DM Sans",sans-serif;background:#fff;color:#1a1b1f;display:flex;align-items:center;justify-content:center;padding:24px}
-    .gate{width:100%;max-width:360px;text-align:center}
-    .gate img{height:40px;margin-bottom:32px}
-    h1{font-size:28px;font-weight:700;margin:0 0 8px}
-    p{font-size:16px;line-height:1.5;color:#5c5d62;margin:0 0 24px}
-    input{width:100%;font:inherit;font-size:16px;padding:14px 16px;border:1px solid #d1d3d8;border-radius:10px;outline:none}
-    input:focus{border-color:#1a1b1f}
-    button{width:100%;margin-top:12px;font:inherit;font-size:16px;font-weight:500;padding:14px 16px;border:0;border-radius:10px;background:#1a1b1f;color:#fff;cursor:pointer}
-    button:disabled{opacity:.6;cursor:default}
-    .err{min-height:24px;margin-top:12px;font-size:14px;color:#c0392b}
-    a{color:inherit}
+    html,body{min-height:100%}
+    body.body{display:flex;align-items:center;justify-content:center;padding:48px 24px;background:#fff}
+    .gate .heading,.gate .heading-copy,.gate .margin-bottom-24px,.gate .title-small-2,.gate .footer-link-2{text-align:left;margin-left:0;margin-right:0}
+    .gate .footer-wrapper-three,.gate .footer-social-block-three{margin-left:0;margin-right:0;justify-content:flex-start;align-items:flex-start}
+    .gate .footer-social-link-three{padding-left:0;padding-right:30px}
+    .gate{width:100%;max-width:560px}
+    .gate .heading-copy{margin-top:8px}
+    .gate .margin-bottom-24px{width:100%}
+    .gate .title-small-2,.gate .footer-link-2{display:block}
+    .gate-form{margin-top:40px;display:flex;flex-direction:column}
+    .gate-note{font-family:"DM Sans",sans-serif;font-size:14px;color:#5c5d62;margin:0 0 12px}
+    .gate-input{width:100%;font-family:"DM Sans",sans-serif;font-size:16px;text-align:center;padding:14px 16px;border:1px solid #1a1b1f;border-radius:0;outline:none;-webkit-appearance:none;appearance:none}
+    .gate-input:focus{box-shadow:inset 0 0 0 1px #1a1b1f}
+    .gate .button-primary{margin:12px 0 0;width:100%;height:auto;padding:14px 25px;border:0;cursor:pointer;text-align:center}
+    .gate .button-primary:disabled{opacity:.6;cursor:default}
+    .gate-err{min-height:22px;margin-top:10px;font-family:"DM Sans",sans-serif;font-size:14px;color:#c0392b}
   </style>
 </head>
-<body>
-  <form class="gate" id="gate">
-    <img src="images/byAM_headerlogo.svg" alt="Alexey Mamay">
-    <h1>Alexey Mamay</h1>
-    <p>This portfolio is password protected.<br>Contact <a href="mailto:alexey.mamay@icloud.com">alexey.mamay@icloud.com</a> for access.</p>
-    <input id="pw" type="password" placeholder="Password" autocomplete="current-password" autofocus required>
-    <button id="go" type="submit">View portfolio</button>
-    <div class="err" id="err"></div>
-  </form>
+<body class="body">
+  <main class="gate">
+    <h1 class="heading">Alexey Mamay</h1>
+    <h5 class="heading-copy">Art Director, Product Motion &amp; Illustration</h5>
+    <p class="margin-bottom-24px">I art direct motion and illustration for digital products, from icon systems and UI animation to the files and libraries engineers build from. I led UX motion design at Apple for four-plus years, including Dynamic Island.</p>
+    <a href="tel:+13462441485" class="title-small-2">346-244-1485</a>
+    <a href="mailto:alexey.mamay@icloud.com" class="footer-link-2">alexey.mamay@icloud.com</a>
+    <div class="footer-wrapper-three">
+      <div class="footer-social-block-three">
+        <a href="http://vimeo.com/alexeymamay" class="footer-social-link-three w-inline-block"><img src="images/iconmonstr-vimeo-3.svg" alt="Vimeo"></a>
+        <a href="https://www.linkedin.com/in/alexmamay" class="footer-social-link-three w-inline-block"><img src="images/iconmonstr-linkedin-3.svg" alt="LinkedIn" width="24"></a>
+      </div>
+    </div>
+    <form class="gate-form" id="gate">
+      <p class="gate-note">This portfolio is password protected.</p>
+      <input class="gate-input" id="pw" type="password" placeholder="Password" autocomplete="current-password" required>
+      <button class="button-primary" id="go" type="submit">View portfolio</button>
+      <div class="gate-err" id="err"></div>
+    </form>
+  </main>
   <script>
   var LOCKED_PAYLOAD = __PAYLOAD__;
   (function () {
