@@ -50,11 +50,12 @@ GATE_STYLE = """
     .gate-input{width:100%;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:500;letter-spacing:2px;text-transform:uppercase;text-align:center;height:48px;padding:0 16px;border:1px solid #1a1b1f;border-radius:0;outline:none;background:#fff;-webkit-appearance:none;appearance:none}
     .gate-input::placeholder{color:#8a8b90}
     .gate-input:focus{box-shadow:inset 0 0 0 1px #1a1b1f}
+    .gate-input:focus::placeholder{color:transparent}
     .gate-form .button-primary{margin:12px 0 0;width:100%;height:48px;padding:14px 25px;border:0;cursor:pointer;text-align:center}
     .gate-form .button-primary:disabled{opacity:.6;cursor:default}
     .gate-err{min-height:22px;margin-top:10px;font-family:"DM Sans",sans-serif;font-size:14px;color:#c0392b;text-align:center}
     @media screen and (max-width:991px){.hero-heading-right-2{padding-top:0}}
-    @media screen and (max-width:767px){.hero-heading-right-2{padding:0 15px}.hero-split-2{max-width:100%;width:100%}.gate-wrap{padding:24px 15px 60px}.gate-form{max-width:none}}
+    @media screen and (max-width:767px){.hero-heading-right-2{padding:0 15px}.hero-split-2{max-width:100%;width:100%}.gate-wrap{padding:24px 15px 60px}.hero-split-2 .heading{margin-top:20px;padding-top:0}.gate-form{max-width:none}}
   </style>
 """
 
