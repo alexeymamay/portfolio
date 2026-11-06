@@ -75,7 +75,14 @@ GATE_STYLE = """
     .gate-form .button-primary{animation-delay:1.5s}
     @media (prefers-reduced-motion:reduce){.hero-split-2 *,.gate-form *{animation:none!important}}
     @media screen and (min-width:768px){.hero-split-2+.hero-split-2{grid-template-columns:auto 1fr auto 3fr}}
-    @media screen and (min-width:992px){.hero-wrapper-2{align-items:stretch}.hero-split-2:first-child{justify-content:flex-end}}
+    @media screen and (min-width:992px){
+      .hero-wrapper-2{align-items:stretch;justify-content:center;column-gap:40px}
+      .hero-split-2:first-child{justify-content:flex-end}
+      .hero-split-2+.hero-split-2{width:fit-content;max-width:none}
+      .hero-split-2+.hero-split-2>.margin-bottom-24px{contain:inline-size;width:100%;margin-bottom:6px}
+      .hero-split-2+.hero-split-2>.title-small-2{margin-top:10px}
+      .hero-split-2+.hero-split-2>.gate-form{margin-top:12px}
+    }
     @media screen and (max-width:991px){.hero-heading-right-2{padding-top:0}}
     @media screen and (max-width:767px){.hero-heading-right-2{padding:0 15px 60px}.hero-split-2 .heading{font-size:30px;line-height:32px}.hero-split-2 .heading-copy{font-size:24px;line-height:26px}.hero-split-2{max-width:100%;width:100%}.hero-split-2 .heading{margin-top:20px;padding-top:0}}
   </style>
