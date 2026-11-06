@@ -35,61 +35,28 @@ def get_password():
     return os.environ.get("LOCK_PASSWORD") or getpass.getpass("Password: ")
 
 
-GATE = """<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>__TITLE__</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+GATE_STYLE = """
   <meta name="robots" content="noindex">
-  <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
-  <link href="images/webclip.png" rel="apple-touch-icon">
-  <link href="css/normalize.css" rel="stylesheet" type="text/css">
-  <link href="css/webflow.css" rel="stylesheet" type="text/css">
-  <link href="css/alexey-motiondesigner.webflow.css" rel="stylesheet" type="text/css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
   <style>
-    html,body{min-height:100%}
-    body.body{display:flex;align-items:center;justify-content:center;padding:48px 24px;background:#fff}
-    .gate .heading,.gate .heading-copy,.gate .margin-bottom-24px,.gate .title-small-2,.gate .footer-link-2{text-align:left;margin-left:0;margin-right:0}
-    .gate .footer-wrapper-three,.gate .footer-social-block-three{margin-left:0;margin-right:0;justify-content:flex-start;align-items:flex-start}
-    .gate .footer-social-link-three{padding-left:0;padding-right:30px}
-    .gate{width:100%;max-width:560px}
-    .gate .heading-copy{margin-top:8px}
-    .gate .margin-bottom-24px{width:100%}
-    .gate .title-small-2,.gate .footer-link-2{display:block}
-    .gate-form{margin-top:40px;display:flex;flex-direction:column}
-    .gate-note{font-family:"DM Sans",sans-serif;font-size:14px;color:#5c5d62;margin:0 0 12px}
-    .gate-input{width:100%;font-family:"DM Sans",sans-serif;font-size:16px;text-align:center;padding:14px 16px;border:1px solid #1a1b1f;border-radius:0;outline:none;-webkit-appearance:none;appearance:none}
+    body.body{min-height:100vh;display:flex;flex-direction:column;justify-content:center;background:#fff}
+    .gate-form{width:80%;margin-top:32px;display:flex;flex-direction:column}
+    .gate-input{width:100%;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:500;letter-spacing:2px;text-transform:uppercase;text-align:center;height:48px;padding:0 16px;border:1px solid #1a1b1f;border-radius:0;outline:none;background:#fff;-webkit-appearance:none;appearance:none}
+    .gate-input::placeholder{color:#8a8b90}
     .gate-input:focus{box-shadow:inset 0 0 0 1px #1a1b1f}
-    .gate .button-primary{margin:12px 0 0;width:100%;height:auto;padding:14px 25px;border:0;cursor:pointer;text-align:center}
-    .gate .button-primary:disabled{opacity:.6;cursor:default}
+    .gate-form .button-primary{margin:12px 0 0;width:100%;height:48px;padding:14px 25px;border:0;cursor:pointer;text-align:center}
+    .gate-form .button-primary:disabled{opacity:.6;cursor:default}
     .gate-err{min-height:22px;margin-top:10px;font-family:"DM Sans",sans-serif;font-size:14px;color:#c0392b}
+    @media screen and (max-width:767px){.gate-form{width:100%;margin-left:auto;margin-right:auto}}
   </style>
-</head>
-<body class="body">
-  <main class="gate">
-    <h1 class="heading">Alexey Mamay</h1>
-    <h5 class="heading-copy">Art Director, Product Motion &amp; Illustration</h5>
-    <p class="margin-bottom-24px">I art direct motion and illustration for digital products, from icon systems and UI animation to the files and libraries engineers build from. I led UX motion design at Apple for four-plus years, including Dynamic Island.</p>
-    <a href="tel:+13462441485" class="title-small-2">346-244-1485</a>
-    <a href="mailto:alexey.mamay@icloud.com" class="footer-link-2">alexey.mamay@icloud.com</a>
-    <div class="footer-wrapper-three">
-      <div class="footer-social-block-three">
-        <a href="http://vimeo.com/alexeymamay" class="footer-social-link-three w-inline-block"><img src="images/iconmonstr-vimeo-3.svg" alt="Vimeo"></a>
-        <a href="https://www.linkedin.com/in/alexmamay" class="footer-social-link-three w-inline-block"><img src="images/iconmonstr-linkedin-3.svg" alt="LinkedIn" width="24"></a>
-      </div>
-    </div>
-    <form class="gate-form" id="gate">
-      <p class="gate-note">This portfolio is password protected.</p>
-      <input class="gate-input" id="pw" type="password" placeholder="Password" autocomplete="current-password" required>
-      <button class="button-primary" id="go" type="submit">View portfolio</button>
-      <div class="gate-err" id="err"></div>
-    </form>
-  </main>
-  <script>
+"""
+
+GATE_FORM = """<form class="gate-form" id="gate">
+            <input class="gate-input" id="pw" type="password" placeholder="Enter password" aria-label="Password" autocomplete="current-password" required>
+            <button class="button-primary" id="go" type="submit">View portfolio</button>
+            <div class="gate-err" id="err"></div>
+          </form>"""
+
+GATE_SCRIPT = """  <script>
   var LOCKED_PAYLOAD = __PAYLOAD__;
   (function () {
     var P = LOCKED_PAYLOAD, STORE = "am_unlock_" + P.salt.slice(0, 8);
@@ -129,19 +96,29 @@ GATE = """<!DOCTYPE html>
     });
   })();
   </script>
-</body>
-</html>
 """
+
+
+def build_gate(page, payload):
+    """Password page = the source page's head + its hero section + the unlock form."""
+    head_end = page.index("</head>")
+    hero_start = page.index('<section id="Heading"')
+    hero_end = page.index("</section>", hero_start) + len("</section>")
+    hero = page[hero_start:hero_end].replace("<!-- GATE_FORM -->", GATE_FORM)
+    scripts = "\n".join(re.findall(r'<script src="[^"]*(?:jquery|webflow)[^"]*"[^>]*></script>', page[hero_end:]))
+    return (page[:head_end] + GATE_STYLE + "</head>\n<body class=\"body\">\n  " + hero + "\n  " + scripts + "\n"
+            + GATE_SCRIPT.replace("__PAYLOAD__", payload) + "</body>\n</html>\n")
+
 
 
 def lock(src, out):
     page = open(src, encoding="utf-8").read()
-    m = re.search(r"<title>(.*?)</title>", page, re.S)
-    title = m.group(1).strip() if m else "Protected page"
     salt, iv = os.urandom(16), os.urandom(12)
     ct = AESGCM(derive(get_password(), salt)).encrypt(iv, page.encode("utf-8"), None)
     payload = json.dumps({"v": 1, "iter": ITERATIONS, "salt": b64(salt), "iv": b64(iv), "data": b64(ct)})
-    gate = GATE.replace("__TITLE__", title).replace("__PAYLOAD__", payload)
+    if "<!-- GATE_FORM -->" not in page:
+        sys.exit("Source page needs a <!-- GATE_FORM --> marker in the hero section.")
+    gate = build_gate(page, payload)
     open(out, "w", encoding="utf-8").write(gate)
     print(f"Locked {src} -> {out}")
 
