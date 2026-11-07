@@ -1,0 +1,19 @@
+/* Project & case-study pages: match the Dynamic Island case study styling */
+.uui-max-width-large-2:has(.uui-text-rich-text){max-width:none}
+.uui-text-rich-text{max-width:none;font-family:"DM Sans",sans-serif;color:#0f0f0f;margin-bottom:72px}
+.uui-text-rich-text p,.uui-text-rich-text li{text-indent:0;font-size:18px;line-height:26px;font-weight:400;color:#0f0f0f;margin:0 0 16px}
+.uui-text-rich-text h1,.uui-text-rich-text h2,.uui-text-rich-text h3,.uui-text-rich-text h4,.uui-text-rich-text h5,.uui-text-rich-text h6{text-indent:0;font-family:"DM Sans",sans-serif;font-size:30px;line-height:44px;letter-spacing:-2px;font-weight:700;color:#0f0f0f;margin:48px 0 10px}
+.uui-text-rich-text>:first-child{margin-top:0}
+.uui-text-rich-text h5 strong{font-weight:700}
+.uui-text-rich-text ul,.uui-text-rich-text ol{margin:0 0 16px;padding-left:22px}
+.uui-text-rich-text li{margin-bottom:8px}
+.uui-text-rich-text li::marker{color:#f3574b}
+.uui-text-rich-text blockquote{text-indent:0;margin:24px 0;padding:0 0 0 20px;border-left:3px solid #f3574b;font-size:18px;line-height:26px;font-style:normal;font-weight:400;color:#0f0f0f}
+.uui-text-rich-text a{color:#0f0f0f;text-decoration:underline;text-decoration-color:#f3574b;text-underline-offset:3px}
+.uui-text-rich-text a:hover{color:#f3574b}
+.uui-text-rich-text figure{margin:32px 0}
+.uui-heading-xsmall{font-family:"DM Sans",sans-serif;font-size:18px;line-height:26px;font-weight:700;color:#0f0f0f}
+@media (max-width:767px){
+  .uui-text-rich-text{margin-bottom:48px}
+  .uui-text-rich-text h1,.uui-text-rich-text h2,.uui-text-rich-text h3,.uui-text-rich-text h4,.uui-text-rich-text h5,.uui-text-rich-text h6{font-size:26px;line-height:30px;margin-top:36px}
+}
