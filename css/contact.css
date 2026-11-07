@@ -1,6 +1,6 @@
 /* Contact ("Let's Collaborate") banner, shared by every page */
 #Contact_ID,#faq{scroll-margin-top:110px}
-.collab{position:relative;left:50%;width:940px;margin:40px 0 80px -470px;box-sizing:border-box;padding:24px 32px 24px 24px;background:#f6f8f8;font-family:"DM Sans",sans-serif;
+.collab{position:relative;left:50%;width:940px;margin:25px 0 40px -470px;box-sizing:border-box;padding:24px 32px 24px 24px;background:#f6f8f8;font-family:"DM Sans",sans-serif;
   display:grid;grid-template-columns:100px 1fr auto;grid-template-rows:auto auto 1fr;column-gap:24px;align-items:start}
 .collab-text{display:contents}
 .collab-photo{grid-column:1;grid-row:1/4;width:100px;height:100px;position:relative;overflow:hidden}
@@ -25,8 +25,9 @@
   .collab{width:728px;margin-left:-364px}
 }
 @media screen and (max-width:767px){
-  #consultation{padding-top:24px}
-  .collab{left:auto;width:100%;margin:0 0 40px;padding:16px;grid-template-columns:80px 1fr;column-gap:16px}
+  #consultation{padding-top:40px}
+  #consultation .footer-divider-2{margin-top:40px}
+  .collab{left:auto;width:100%;margin:0;padding:16px;grid-template-columns:80px 1fr;column-gap:16px}
   .collab-photo{width:80px;height:80px}
   .collab-text .heading{font-size:22px;line-height:26px;margin-bottom:2px}
   .collab-text>.footer-link-2,.collab-text>.title-small-2{font-size:15px;line-height:22px}
