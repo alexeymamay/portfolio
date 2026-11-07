@@ -1,21 +1,22 @@
 /* Contact ("Let's Collaborate") banner, shared by every page */
 #Contact_ID,#faq{scroll-margin-top:110px}
 .collab{position:relative;left:50%;width:940px;margin:80px 0 80px -470px;box-sizing:border-box;padding:24px 32px 24px 24px;background:#f6f8f8;font-family:"DM Sans",sans-serif;
-  display:grid;grid-template-columns:100px 1fr auto;grid-template-rows:auto auto auto;column-gap:24px;align-content:center;align-items:center}
+  display:grid;grid-template-columns:100px 1fr auto;grid-template-rows:auto auto 1fr;column-gap:24px;align-items:start}
 .collab-text{display:contents}
 .collab-photo{grid-column:1;grid-row:1/4;width:100px;height:100px;position:relative;overflow:hidden}
 .collab-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:42% 0%}
 .collab-text .collab-kicker{position:absolute;top:0;left:0;width:1px;height:1px;margin:0;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.collab-text .heading-copy,.collab-text .margin-bottom-24px{display:none}
-.collab-text .heading{grid-column:2;grid-row:1;align-self:end;margin:0 0 6px;padding:0;text-align:left;font-size:30px;line-height:34px;letter-spacing:-1px}
+.collab-text .margin-bottom-24px{display:none}
+.collab-text .heading-copy{grid-column:2;grid-row:2;margin:0;padding:0;text-align:left;color:#0f0f0f;font-size:18px;line-height:26px;font-weight:400;letter-spacing:0}
+.collab-text .heading{grid-column:2;grid-row:1;margin:-2px 0 2px;padding:0;text-align:left;font-size:30px;line-height:34px;letter-spacing:-1px}
 .collab-text>.footer-link-2,.collab-text>.title-small-2{justify-self:start;margin:0;padding:0;border:0;background:none;color:#0f0f0f;font-family:"DM Sans",sans-serif;font-size:18px;line-height:26px;font-weight:400;text-decoration:none;text-align:left}
-.collab-text>.footer-link-2{grid-column:2;grid-row:2}
-.collab-text>.title-small-2{grid-column:2;grid-row:3;align-self:start}
+.collab-text>.footer-link-2{grid-column:3;grid-row:1;justify-self:end;margin-top:4px}
+.collab-text>.title-small-2{grid-column:3;grid-row:2;justify-self:end}
 .collab-text>.title-small-2:hover,.collab-text>.footer-link-2:hover{color:#f3574b}
-.collab-text>.footer-wrapper-three{grid-column:3;grid-row:1/4;align-self:center;justify-self:end;margin:0;padding:0}
+.collab-text>.footer-wrapper-three{grid-column:2;grid-row:3;align-self:end;justify-self:start;margin:0;padding:0}
 .collab-text .footer-social-block-three{margin:0;padding:0;display:flex;align-items:center;gap:16px}
 .collab-text .footer-social-link-three{padding:0}
-.collab-text .footer-social-link-three img{width:36px;height:36px;display:block}
+.collab-text .footer-social-link-three img{width:32px;height:32px;display:block}
 @media screen and (max-width:991px){
   .collab{width:728px;margin-left:-364px}
 }
@@ -24,6 +25,11 @@
   .collab-photo{width:80px;height:80px}
   .collab-text .heading{font-size:22px;line-height:26px;margin-bottom:2px}
   .collab-text>.footer-link-2,.collab-text>.title-small-2{font-size:15px;line-height:22px}
-  .collab-text>.footer-wrapper-three{grid-column:1/-1;grid-row:4;justify-self:start;margin-top:16px}
-  .collab-text .footer-social-link-three img{width:32px;height:32px}
+  .collab{grid-template-columns:80px 1fr;grid-template-rows:auto auto auto auto auto}
+  .collab-photo{grid-row:1/4}
+  .collab-text .heading-copy{font-size:15px;line-height:20px}
+  .collab-text>.footer-wrapper-three{grid-column:2;grid-row:3;margin-top:8px}
+  .collab-text>.footer-link-2{grid-column:1/-1;grid-row:4;justify-self:start;margin-top:14px}
+  .collab-text>.title-small-2{grid-column:1/-1;grid-row:5;justify-self:start}
+  .collab-text .footer-social-link-three img{width:28px;height:28px}
 }
